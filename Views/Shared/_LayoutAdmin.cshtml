@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="img/favicon.ico" rel="shortcut icon" />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/css/Content/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/Content/font-awesome.min.css" />
+    <link rel="stylesheet" href="~/css/Content/owl.carousel.css" />
+    <link rel="stylesheet" href="~/css/Content/Site.css" />
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+    <link href='@Url.Content("~/css/Content/themes/base/all.css")' rel="stylesheet" type="text/css" />
+
+</head>
+<body>
+
+    <style>
+        a.logout {
+            color: aliceblue;
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <div class="container">
+            @Html.ActionLink("Tootles", "Index", "Home", new { area = "" }, new { @class = "navbar-brand text-light" })
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end ml-auto" id="navbarNavAltMarkup">
+                <span class="float-right"> @Html.ActionLink("Logout", "Index", "Home", null, new { @class = "logout" })</span>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+
+        <div class="row content mt-5">
+
+            <div class="col-sm-3 sidenav mt-5" style="padding-top: 50px;">
+
+                <ul class="list-group">
+                    <li class="list-group-item bg-dark" style="color:aliceblue">Tables: </li>
+                    <li class="list-group-item">@Html.ActionLink("Courses", "Index", "Courses")</li>
+                    <li class="list-group-item">@Html.ActionLink("CourseChapters", "Index", "CourseChapters")</li>
+                    <li class="list-group-item">@Html.ActionLink("CourseChapterContents", "Index", "CourseChapterContents")</li>
+                    <li class="list-group-item">@Html.ActionLink("Students", "Index", "Students")</li>
+                    <li class="list-group-item">@Html.ActionLink("Languages", "Index", "Languages")</li>
+                </ul>
+
+            </div>
+            <div class="col-sm-9 text-left mt-5 ">
+
+                @RenderBody()
+            </div>
+        </div>
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - E-Learning Platform</p>
+        </footer>
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
