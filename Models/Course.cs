@@ -15,15 +15,15 @@ namespace ELearningMVC.Models
 
         [Required]
         [StringLength(30, MinimumLength = 3)]
-        public String CourseTitle { get; set; }
+        public string CourseTitle { get; set; }
 
         [Required]
         [StringLength(60, MinimumLength = 3)]
-        public String CourseBrief { get; set; }
+        public string CourseBrief { get; set; }
 
         [Required]
         [StringLength(30)]
-        public String Teacher { get; set; }
+        public string Teacher { get; set; }
 
         [Required]
         [StringLength(80)]
@@ -34,7 +34,7 @@ namespace ELearningMVC.Models
         [ForeignKey("LanguageId")]
         public virtual Language Language { get; set; }
 
-        public String ImgUrl { get; set; }
+        public string ImgUrl { get; set; }
 
 
         public virtual ICollection<CourseChapter> CourseChapter { get; set; }

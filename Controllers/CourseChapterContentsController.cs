@@ -20,10 +20,44 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: CourseChapterContents
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            var eLearningMVCContext = _context.CourseChapterContent.Include(c => c.CourseChapter);
-            return View(await eLearningMVCContext.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var contents = from s in _context.CourseChapterContent
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                contents = contents.Where(s => s.ContentName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    contents = contents.OrderByDescending(s => s.ContentName);
+                    break;
+                default:
+                    contents = contents.OrderBy(s => s.ContentName);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<CourseChapterContent>.CreateAsync(contents.Include(a => a.CourseChapter).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: CourseChapterContents/Details/5

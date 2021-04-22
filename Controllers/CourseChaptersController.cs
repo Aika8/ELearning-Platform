@@ -20,10 +20,44 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: CourseChapters
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            var eLearningMVCContext = _context.CourseChapter.Include(c => c.Course);
-            return View(await eLearningMVCContext.ToListAsync());
+            ViewData["TimeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "time_desc" : "";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var chapters = from s in _context.CourseChapter
+                          select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                chapters = chapters.Where(s => s.ChapterTitle.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "time_desc":
+                    chapters = chapters.OrderByDescending(s => s.ChapterTitle);
+                    break;
+                default:
+                    chapters = chapters.OrderBy(s => s.ChapterTitle);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<CourseChapter>.CreateAsync(chapters.Include(a => a.Course).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: CourseChapters/Details/5
@@ -48,7 +82,7 @@ namespace ELearningMVC.Controllers
         // GET: CourseChapters/Create
         public IActionResult Create()
         {
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseBrief");
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseTitle");
             return View();
         }
 
@@ -65,7 +99,7 @@ namespace ELearningMVC.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseBrief", courseChapter.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseTitle", courseChapter.CourseId);
             return View(courseChapter);
         }
 
@@ -82,7 +116,7 @@ namespace ELearningMVC.Controllers
             {
                 return NotFound();
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseBrief", courseChapter.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseTitle", courseChapter.CourseId);
             return View(courseChapter);
         }
 
@@ -118,7 +152,7 @@ namespace ELearningMVC.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseBrief", courseChapter.CourseId);
+            ViewData["CourseId"] = new SelectList(_context.Course, "Id", "CourseTitle", courseChapter.CourseId);
             return View(courseChapter);
         }
 

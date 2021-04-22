@@ -20,9 +20,44 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: Languages
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            return View(await _context.Language.ToListAsync());
+            ViewData["CodeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "code_desc" : "";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var langs = from s in _context.Language
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                langs = langs.Where(s => s.Code.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "code_desc":
+                    langs = langs.OrderByDescending(s => s.Code);
+                    break;
+                default:
+                    langs = langs.OrderBy(s => s.Code);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Language>.CreateAsync(langs.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Languages/Details/5

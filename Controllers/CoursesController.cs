@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ELearningMVC.Data;
 using ELearningMVC.Models;
+using System.Dynamic;
 
 namespace ELearningMVC.Controllers
 {
@@ -20,10 +21,52 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: Courses
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder,
+        string currentFilter,
+        string searchString,
+        int? pageNumber)
         {
-            var eLearningMVCContext = _context.Course.Include(c => c.Language);
-            return View(await eLearningMVCContext.ToListAsync());
+            ViewData["TitileSortParm"] = String.IsNullOrEmpty(sortOrder) ? "title_desc" : "title_asc";
+            ViewData["TypeSortParm"] = String.IsNullOrEmpty(sortOrder) ? "type_desc" : "";
+            ViewData["CurrentSort"] = sortOrder;
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+
+            var courses = from s in _context.Course
+                           select s;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                courses = courses.Where(s => s.CourseTitle.Contains(searchString)
+                                       || s.Type.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "title_desc":
+                    courses = courses.OrderByDescending(s => s.CourseTitle);
+                    break;
+                case "title_asc":
+                    courses = courses.OrderBy(s => s.CourseTitle);
+                    break;
+                case "type_desc":
+                    courses = courses.OrderByDescending(s => s.Type);
+                    break;
+                default:
+                    courses = courses.OrderBy(s => s.Type);
+                    break;
+            }
+
+            int pageSize = 3;
+            return View(await PaginatedList<Course>.CreateAsync(courses.Include(a => a.Language).AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Courses/Details/5

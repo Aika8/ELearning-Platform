@@ -19,9 +19,9 @@ namespace ELearningMVC.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>()
-                    .HasMany(c => c.Students)
-                    .WithMany(s => s.Courses)
-                    .UsingEntity(j => j.ToTable("Enrollments"));
+             .HasMany(c => c.Students)
+             .WithMany(s => s.Courses)
+             .UsingEntity(j => j.ToTable("Enrollments"));
         }
     }
 }
