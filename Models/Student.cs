@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ELearningMVC.Models
 {
-    public class Student
+    public class Student : IdentityUser
     {
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

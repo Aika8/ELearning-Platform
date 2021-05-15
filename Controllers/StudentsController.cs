@@ -77,7 +77,7 @@ namespace ELearningMVC.Controllers
             }
 
             var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => int.Parse(m.Id) == id);
             if (student == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace ELearningMVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName")] Student student)
         {
-            if (id != student.Id)
+            if (id != int.Parse(student.Id))
             {
                 return NotFound();
             }
@@ -146,7 +146,7 @@ namespace ELearningMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(student.Id))
+                    if (!StudentExists(int.Parse(student.Id)))
                     {
                         return NotFound();
                     }
@@ -169,7 +169,7 @@ namespace ELearningMVC.Controllers
             }
 
             var student = await _context.Student
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => int.Parse(m.Id) == id);
             if (student == null)
             {
                 return NotFound();
@@ -191,7 +191,7 @@ namespace ELearningMVC.Controllers
 
         private bool StudentExists(int id)
         {
-            return _context.Student.Any(e => e.Id == id);
+            return _context.Student.Any(e => int.Parse(e.Id) == id);
         }
     }
 }

@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ELearningMVC.Data;
 using Microsoft.EntityFrameworkCore;
+using ELearningMVC.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace ELearningMVC
 {
@@ -29,6 +31,10 @@ namespace ELearningMVC
 
             services.AddDbContext<ELearningMVCContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ELearningMVCContext")));
+
+            services.AddIdentity<Student, IdentityRole>()
+                .AddEntityFrameworkStores<ELearningMVCContext>()
+                .AddDefaultTokenProviders();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +55,7 @@ namespace ELearningMVC
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

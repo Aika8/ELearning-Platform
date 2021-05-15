@@ -1,9 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ELearningMVC.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace ELearningMVC.Data
 {
-    public class ELearningMVCContext : DbContext
+    public class ELearningMVCContext : IdentityDbContext
     {
         public ELearningMVCContext(DbContextOptions<ELearningMVCContext> options)
             : base(options)
@@ -22,6 +23,8 @@ namespace ELearningMVC.Data
              .HasMany(c => c.Students)
              .WithMany(s => s.Courses)
              .UsingEntity(j => j.ToTable("Enrollments"));
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }
