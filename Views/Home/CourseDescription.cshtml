@@ -1,0 +1,85 @@
+﻿@model ELearningMVC.Models.Course
+@using Microsoft.AspNetCore.Identity
+
+<!-- Modal Header -->
+<div class="modal-header">
+    <h1 class="modal-title">@Html.DisplayFor(m => m.CourseTitle)</h1>
+    <button type="button" class="close" data-dismiss="modal">X</button>
+</div>
+
+<!-- Modal body -->
+<div class="modal-body">
+    <div class="container" style="width:700px;">
+        @if (User.Identity.IsAuthenticated)
+        {
+            if (ViewBag.enroll == "no")
+            {
+                <div class="align-items-center mt-4">
+                    @using (Html.BeginForm("Enroll", "Home", FormMethod.Post))
+                    {
+                        <input name="id" type="hidden" value="@Html.DisplayFor(m => m.Id)" />
+                        <button type="submit" class="btn btn-primary">Enroll For Free</button><br />
+                        <small class="text-muted">Sponsored by International IT University</small>
+                    }
+                </div>
+            }
+            if (ViewBag.enroll == "yes")
+            {
+                <div class="align-items-center mt-4">
+                    <button type="button" class="btn btn-primary">You already enrolled</button><br />
+                    <small class="text-muted">Sponsored by International IT University</small>
+                </div>
+            }
+        }
+        <hr />
+        <div class="mb-3">
+            <h3 class="mx-2">About the Course</h3>
+            <p>@Html.DisplayFor(m => m.CourseBrief)</p>
+        </div>
+        <hr />
+        <div class="align-items-center mx-4">
+            <h3 class="text-center">Syllabus - What you will learn from this course</h3>
+            @{
+                int i = 1;
+            }
+            @foreach (var chapter in Model.CourseChapter)
+            {
+
+                <div class="card mt-4 mb-4">
+                    <div class="card-header">
+                        Week @i
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title" style="border-style:none"> @Html.DisplayFor(modelItem => chapter.ChapterTitle)</h5>
+                        <p class="card-text">
+                            <ul class="list-group">
+                                @foreach (var content in chapter.CourseChapterContent)
+                                {
+
+                                    <li class="list-group-item">@Html.DisplayFor(modelItem => content.ContentName)</li>
+                                    if (User.Identity.IsAuthenticated)
+                                    {
+                                        if (ViewBag.enroll == "yes")
+                                        {
+                                            @Html.ActionLink("Download", "DownloadFile", new { fileName = content.File }, new { @class = "btn btn-dark" })
+                                        }
+                                    }
+                                }
+                            </ul>
+                        </p>
+                    </div>
+                    @{
+                        i++;
+                    }
+                </div>
+            }
+            <hr />
+            <div class="align-items-center mx-6 d-inline">
+                <img src="@Html.DisplayFor(m => m.ImgUrl)" class="rounded-circle float-right" alt="Cinque Terre" width="304" height="236">
+                <h5 class="mb-3">@Html.DisplayFor(m => m.Teacher)</h5>
+                <small>One of the greatest teachers in the field<br /> he has done a lot of research in this area <br /> And only here you can learn such amazing knowledge.</small>
+            </div>
+        </div>
+    </div>
+
+</div>

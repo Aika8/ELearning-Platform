@@ -29,7 +29,7 @@ namespace ELearningMVC.Controllers
         {
             if (ModelState.IsValid)
             {
-                Student user = new Student { Email = model.Email, UserName = model.FirstName + model.LastName, FirstName = model.FirstName, LastName= model.LastName };
+                Student user = new Student { Email = model.Email, UserName = model.Email, FirstName = model.FirstName, LastName= model.LastName };
                 // добавляем пользователя
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

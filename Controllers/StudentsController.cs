@@ -69,7 +69,7 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: Students/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string id)
         {
             if (id == null)
             {
@@ -77,7 +77,7 @@ namespace ELearningMVC.Controllers
             }
 
             var student = await _context.Student
-                .FirstOrDefaultAsync(m => int.Parse(m.Id) == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -110,7 +110,7 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: Students/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string id)
         {
             if (id == null)
             {
@@ -130,9 +130,9 @@ namespace ELearningMVC.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName")] Student student)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,FirstName,LastName")] Student student)
         {
-            if (id != int.Parse(student.Id))
+            if (id != student.Id)
             {
                 return NotFound();
             }
@@ -146,7 +146,7 @@ namespace ELearningMVC.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StudentExists(int.Parse(student.Id)))
+                    if (!StudentExists(student.Id))
                     {
                         return NotFound();
                     }
@@ -161,7 +161,7 @@ namespace ELearningMVC.Controllers
         }
 
         // GET: Students/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string id)
         {
             if (id == null)
             {
@@ -169,7 +169,7 @@ namespace ELearningMVC.Controllers
             }
 
             var student = await _context.Student
-                .FirstOrDefaultAsync(m => int.Parse(m.Id) == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (student == null)
             {
                 return NotFound();
@@ -181,7 +181,7 @@ namespace ELearningMVC.Controllers
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var student = await _context.Student.FindAsync(id);
             _context.Student.Remove(student);
@@ -189,9 +189,9 @@ namespace ELearningMVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool StudentExists(int id)
+        private bool StudentExists(string id)
         {
-            return _context.Student.Any(e => int.Parse(e.Id) == id);
+            return _context.Student.Any(e => e.Id == id);
         }
     }
 }

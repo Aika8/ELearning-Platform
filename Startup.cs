@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using ELearningMVC.Models;
 using Microsoft.AspNetCore.Identity;
 
+
 namespace ELearningMVC
 {
     public class Startup
@@ -35,6 +36,15 @@ namespace ELearningMVC
             services.AddIdentity<Student, IdentityRole>()
                 .AddEntityFrameworkStores<ELearningMVCContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,6 +67,8 @@ namespace ELearningMVC
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

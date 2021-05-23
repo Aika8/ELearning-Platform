@@ -4,7 +4,7 @@ body {
     height: 100%;
     font-family: 'Raleway', sans-serif;
     -webkit-font-smoothing: antialiased;
-    font-smoothing: antialiased;
+
 }
 
 h1,
@@ -64,17 +64,13 @@ textarea:focus {
     font-style: italic;
 }
 
-::-ms-input-placeholder {
-    font-style: italic;
-}
+
 
 :-ms-input-placeholder {
     font-style: italic;
 }
 
-::placeholder {
-    font-style: italic;
-}
+
 
 a:hover {
     color: #d82a4e;
@@ -272,15 +268,15 @@ ol {
 
         .main-menu ul li a {
             display: inline-block;
-            font-size: 16px;
-            color: #fff;
+            font-size: 19px;
+            color: #d82a4e;
             margin-left: 45px;
-            font-weight: 600;
+            font-weight: 900;
             padding: 20px 0 5px;
         }
 
             .main-menu ul li a:hover {
-                color: #d82a4e;
+                color: #000;
             }
 
 .header-btn {
@@ -596,100 +592,6 @@ ol {
             border-bottom: 4px solid #d82a4e;
         }
 
-/*------------------
-  Signup section
----------------------*/
-
-.signup-section {
-    background: #d82a4e;
-    position: relative;
-}
-
-    .signup-section .section-title {
-        padding: 0;
-        margin-bottom: 55px;
-    }
-
-    .signup-section .signup-bg {
-        position: absolute;
-        width: 50%;
-        height: 100%;
-        right: 0;
-        top: 0;
-        z-index: 1;
-    }
-
-.signup-warp {
-    padding: 0 100px;
-}
-
-.signup-form,
-.contact-form {
-    background: #fff;
-    padding: 60px;
-}
-
-    .signup-form input[type=text],
-    .signup-form input[type=email],
-    .signup-form textarea,
-    .contact-form input[type=text],
-    .contact-form input[type=email],
-    .contact-form textarea {
-        height: 57px;
-        width: 100%;
-        padding: 0 30px;
-        margin-bottom: 27px;
-        float: left;
-        border: none;
-        font-size: 14px;
-        font-weight: 500;
-        background: #edf4f6;
-    }
-
-        .signup-form input[type=text]:focus,
-        .signup-form input[type=email]:focus,
-        .signup-form textarea:focus,
-        .contact-form input[type=text]:focus,
-        .contact-form input[type=email]:focus,
-        .contact-form textarea:focus {
-            border-bottom: 2px solid #d82a4e;
-        }
-
-    .signup-form input[type=file],
-    .contact-form input[type=file] {
-        display: none;
-    }
-
-    .signup-form textarea,
-    .contact-form textarea {
-        padding-top: 23px;
-        padding-bottom: 15px;
-        height: 225px;
-    }
-
-    .signup-form .file-up-btn,
-    .contact-form .file-up-btn {
-        display: block;
-        background: #3e3e3e;
-        color: #fff;
-        max-width: 175px;
-        padding: 13px 5px;
-        font-size: 14px;
-        font-weight: 600;
-        margin-bottom: 23px;
-        clear: both;
-        text-align: center;
-        overflow: hidden;
-    }
-
-    .signup-form .site-btn,
-    .contact-form .site-btn {
-        padding: 17px 10px;
-    }
-
-.featured-courses {
-    padding-top: 67px;
-}
 
 /*------------------
   Footer section
@@ -951,7 +853,7 @@ ol {
     }
 
 .course-meta-area .site-btn {
-    min-width: auto;
+
     font-size: 14px;
 }
 
@@ -1590,229 +1492,67 @@ ol {
         }
 }
 
-/* Large Mobile :480px. */
+.ui-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+    outline: none;
+}
 
-@media only screen and (max-width: 767px) {
-    .section-title {
-        padding: 0;
-    }
-
-        .section-title h2 {
-            font-size: 40px;
-        }
-
-    .header-btn {
-        display: none;
-    }
-
-    .nav-switch {
-        display: block;
-        float: right;
-        color: #333;
-        font-size: 25px;
-        width: 40px;
-        height: 40px;
-        background: #fff;
-        text-align: center;
-        padding-top: 2px;
-        -webkit-box-shadow: 0 0 13px rgba(0, 0, 0, 0.25);
-        box-shadow: 0 0 13px rgba(0, 0, 0, 0.25);
-    }
-
-    .main-menu {
-        background: #fff;
-        margin-top: 22px;
+    .ui-menu .ui-menu {
         position: absolute;
-        width: 100%;
-        left: 0;
-        top: 100%;
-        display: none;
-        z-index: 999;
     }
 
-        .main-menu ul li {
-            display: block;
-        }
-
-            .main-menu ul li a {
-                margin-left: 0;
-                padding: 17px 25px;
-                border-bottom: 1px solid #e8e8e8;
-                display: block;
-                color: #474747;
-            }
-
-    .hero-text {
-        margin-bottom: 50px;
-    }
-
-        .hero-text h2 {
-            font-size: 40px;
-        }
-
-    .intro-newslatter {
-        text-align: center;
-    }
-
-        .intro-newslatter input[type=text],
-        .intro-newslatter input[type=email] {
-            margin-bottom: 20px;
-            width: 47.6%;
-        }
-
-            .intro-newslatter input[type=text].last-s,
-            .intro-newslatter input[type=email].last-s {
-                margin-right: 0;
-            }
-
-    .search-warp {
-        padding: 40px 30px 30px;
-    }
-
-    .course-search-form input[type=text],
-    .course-search-form input[type=email] {
-        width: 100%;
-        margin-bottom: 20px;
-        margin-right: 0;
-    }
-
-    .signup-warp {
-        padding: 0 60px;
-    }
-
-    .signup-section .signup-bg {
-        display: none;
-    }
-
-    .widget-item {
-        width: 50%;
-        margin-bottom: 50px;
-    }
-
-    .search-section.ss-other-page .search-warp {
-        padding: 30px;
-    }
-
-    .search-section.ss-other-page .section-title h2 {
-        background: #d82a4e;
-    }
-
-    .course-item.featured-course .course-thumb {
+    .ui-menu .ui-menu-item {
         position: relative;
-        width: 100%;
-        height: 350px;
+        margin: 0;
+        padding: 3px 1em 3px .4em;
+        cursor: pointer;
+        color: azure;
+        font-size: medium;
+        min-height: 0; /* support: IE7 */
+        /* support: IE10, see #8844 */
+        list-style-image: url("data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7");
     }
 
-    .course-meta-area {
-        padding: 35px 20px;
+    .ui-menu .ui-menu-divider {
+        margin: 5px 0;
+        height: 0;
+        font-size: 0;
+        line-height: 0;
+        border-width: 1px 0 0 0;
     }
 
-    .course-meta {
-        display: inline-block;
-        padding: 5px 0;
-        width: 100%;
-        margin-bottom: 15px;
-        border-right: none;
+    .ui-menu .ui-state-focus,
+    .ui-menu .ui-state-active {
+        margin: -1px;
     }
+
+/* icon support */
+.ui-menu-icons {
+    position: relative;
 }
 
-/* Medium Mobile :480px. */
-
-@media only screen and (max-width: 576px) {
-    .hero-section {
-        height: auto;
+    .ui-menu-icons .ui-menu-item {
+        padding-left: 2em;
     }
 
-    .intro-newslatter {
-        padding-bottom: 100px;
-    }
-
-        .intro-newslatter input[type=text],
-        .intro-newslatter input[type=email] {
-            margin-bottom: 20px;
-            width: 100%;
-            margin-right: 0;
-        }
-
-    .course-search-form .site-btn {
-        min-width: auto;
-        padding: 16px 20px;
-    }
-
-    .signup-warp {
-        padding: 0;
-    }
-
-    .signup-form,
-    .contact-form {
-        padding: 30px;
-    }
-
-    .course-filter li {
-        font-size: 14px;
-    }
-
-    .widget-item {
-        width: 100%;
-        margin-bottom: 50px;
-    }
-
-    .course-meta-area .price-btn {
-        margin-bottom: 20px;
-    }
+/* left-aligned */
+.ui-menu .ui-icon {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: .2em;
+    margin: auto 0;
 }
 
-/* Small Mobile :320px. */
-
-@media only screen and (max-width: 479px) {
-    .section-title h2 {
-        font-size: 30px;
-    }
-
-    .signup-form,
-    .contact-form {
-        padding: 20px;
-    }
-
-    .search-warp {
-        padding: 40px 20px 30px;
-    }
-
-    .course-search-form {
-        padding: 44px 20px;
-    }
-
-    .contact-form-warp {
-        padding: 40px 15px;
-    }
-
-        .contact-form-warp .contact-form {
-            padding: 50px 15px 40px;
-        }
-
-    .signup-form .site-btn,
-    .contact-form .site-btn {
-        min-width: auto;
-        padding: 17px 20px;
-    }
-
-    .contact-info-area .phone-number {
-        margin-bottom: 50px;
-    }
-
-        .contact-info-area .phone-number h2 {
-            font-size: 24px;
-        }
-
-    .contact-info-area .contact-list {
-        padding-left: 8px;
-    }
-
-    .contact-info-area .social-links {
-        padding-left: 0;
-    }
-
-        .contact-info-area .social-links a {
-            margin-right: 10px;
-        }
+/* right-aligned */
+.ui-menu .ui-menu-icon {
+    left: auto;
+    right: 0;
 }
+
+@import "theme.css";
+@import "jquery-ui.css";
+@import "jquery-ui.min.css";
